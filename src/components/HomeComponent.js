@@ -13,17 +13,17 @@ function Home(){
     const urlState = sessionStorage.getItem("urlState");
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('http://localhost:3000/getOwners')
+        axios.get('https://backend-ewdk.onrender.com/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
 
     }, [])
     const [landholds, setLandHolds] = useState([])
     useEffect(()=>{
-        axios.get('http://localhost:3000/getLandHoldings')
+        axios.get('https://backend-ewdk.onrender.com/getLandHoldings')
         .then(landholds => setLandHolds(landholds.data))
         .catch(err => console.log(err))
-        axios.get('http://localhost:3000/getOwners')
+        axios.get('https://backend-ewdk.onrender.com/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
         
@@ -31,12 +31,12 @@ function Home(){
     }, [])
 
     const handleDeleteOwner = async(id)=>{
-        const owners = await axios.delete("http://localhost:3000/deleteOwner/" + id)
+        const owners = await axios.delete("https://backend-ewdk.onrender.com/deleteOwner/" + id)
         if(owners.data.success){
-                axios.get('http://localhost:3000/getOwners')
+                axios.get('https://backend-ewdk.onrender.com/getOwners')
                 .then(owners => setOwners(owners.data))
                 .catch(err => console.log(err))
-                axios.get('http://localhost:3000/getLandHoldings')
+                axios.get('https://backend-ewdk.onrender.com/getLandHoldings')
                 .then(landholds => setLandHolds(landholds.data))
                 .catch(err => console.log(err))
             alert(owners.data.message)
@@ -44,12 +44,12 @@ function Home(){
     }
     
     const handleDeleteLandHolding = async(id)=>{
-        const landholds = await axios.delete("http://localhost:3000/deleteLandHolding/" + id)
+        const landholds = await axios.delete("https://backend-ewdk.onrender.com/deleteLandHolding/" + id)
         if(landholds.data.success){
-                axios.get('http://localhost:3000/getLandHoldings')
+                axios.get('https://backend-ewdk.onrender.com/getLandHoldings')
                 .then(landholds => setLandHolds(landholds.data))
                 .catch(err => console.log(err))
-                axios.get('http://localhost:3000/getOwners')
+                axios.get('https://backend-ewdk.onrender.com/getOwners')
                 .then(owners => setOwners(owners.data))
                 .catch(err => console.log(err))
             alert(landholds.data.message)
@@ -97,7 +97,6 @@ function Home(){
                                 <td>
                                     <button className="btn btn-edit" onClick={()=> navigate(`/EditOwner/${owner._id}`)}>Edit</button>
                                     <button className="btn btn-delete" onClick={()=>handleDeleteOwner(owner._id)}>Delete</button>
-                                    <button className="btn btn-edit" onClick={()=>handleDeleteOwner(owner._id)}>File Upload</button>
                                 </td>
                             </tr>
                         })

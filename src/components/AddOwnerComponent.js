@@ -16,7 +16,7 @@ function Add(){
             return alert("Please fill in all details");
         }
         try{
-            await axios.post("http://localhost:3000/Add", {
+            await axios.post("https://backend-ewdk.onrender.com/Add", {
                 ownerName,entityType,ownerType,address
             })
             .then(res =>{

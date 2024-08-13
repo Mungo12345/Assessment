@@ -23,7 +23,7 @@ function AddLand(){
             return alert("Please fill in all details");
         }
         try{
-            await axios.post("http://localhost:3000/AddLand", {
+            await axios.post("https://backend-ewdk.onrender.com/AddLand", {
                 ownerID,legalEntity,netMineralAcres,mineralOwnerRoyalty,section,townshipBeg,townshipEnd,rangeBeg,rangeEnd,titleSource
             })
             .then(
@@ -41,7 +41,7 @@ function AddLand(){
     }
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('http://localhost:3000/getOwners')
+        axios.get('https://backend-ewdk.onrender.com/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
 

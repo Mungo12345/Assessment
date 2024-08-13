@@ -30,7 +30,7 @@ function EditLandHolding(){
     })
 
     useEffect(()=> {
-        axios.get('http://localhost:3000/getLandHolding/' + id)
+        axios.get('https://backend-ewdk.onrender.com/getLandHolding/' + id)
         .then(res => {
             setValues({...values, name : res.data.name,
                 ownerID: res.data.ownerID,
@@ -55,7 +55,7 @@ function EditLandHolding(){
   
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('http://localhost:3000/getOwners')
+        axios.get('https://backend-ewdk.onrender.com/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
 
@@ -68,7 +68,7 @@ function EditLandHolding(){
         ){
             return alert("Please fill in all details");
         }
-        axios.put('http://localhost:3000/updateLandHolding/' + id,{
+        axios.put('https://backend-ewdk.onrender.com/updateLandHolding/' + id,{
             values
         })
         .then(history("/home", {state:{id:sessionStorage.getItem("urlState")}}))
