@@ -17,7 +17,7 @@ function EditOwner(){
     })
 
     useEffect(()=> {
-        axios.get('https://backend-ewdk.onrender.com/getOwner/' + id)
+        axios.get('http://localhost:3000/getOwner/' + id)
         .then(res => {
             setValues({...values, ownerName: res.data.ownerName,entityType:res.data.entityType, ownerType:res.data.ownerType, address:res.data.address})
         })
@@ -26,10 +26,13 @@ function EditOwner(){
     const navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put('https://backend-ewdk.onrender.com/updateOwner/' + id,{
+        if(!values.ownerName||!values.entityType||!values.ownerType||!values.address){
+            return alert("Please fill in all details");
+        }
+        axios.put('http://localhost:3000/updateOwner/' + id,{
             values
         })
-        .then(history(-1))
+        .then(history("/home", {state:{id:sessionStorage.getItem("urlState")}}))
         .catch(err => console.log(err))
     }
     return(

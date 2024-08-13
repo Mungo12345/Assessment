@@ -9,9 +9,11 @@ function SignIn(){
     const [password,setPassword] = useState('')
     async function submit(e){
         e.preventDefault();
-
+        if(!email || !password){
+            return alert("Please fill in all details");
+        }
         try{
-            await axios.post("https://backend-ewdk.onrender.com/signIn", {
+            await axios.post("http://localhost:3000/signIn", {
                 email,password
             })
             .then(res =>{
@@ -36,8 +38,8 @@ function SignIn(){
             <h1>Signup</h1>
 
             <form action = "POST">
-                <input type = "email" onChange={(e) => {setEmail(e.target.value)}} placeholder="Email" required={true}/>
-                <input type = "password" onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" required={true}/>
+                <input type = "email" onChange={(e) => {setEmail(e.target.value)}} placeholder="Email"/>
+                <input  type = "password" onChange={(e) => {setPassword(e.target.value)}} placeholder="Password"/>
                 <input type = "submit" onClick = {submit}/>
 
             </form>

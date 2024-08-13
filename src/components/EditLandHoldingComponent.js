@@ -30,7 +30,7 @@ function EditLandHolding(){
     })
 
     useEffect(()=> {
-        axios.get('https://backend-ewdk.onrender.com/getLandHolding/' + id)
+        axios.get('http://localhost:3000/getLandHolding/' + id)
         .then(res => {
             setValues({...values, name : res.data.name,
                 ownerID: res.data.ownerID,
@@ -55,7 +55,7 @@ function EditLandHolding(){
   
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('https://backend-ewdk.onrender.com/getOwners')
+        axios.get('http://localhost:3000/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
 
@@ -63,10 +63,15 @@ function EditLandHolding(){
 
      const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put('https://backend-ewdk.onrender.com/updateLandHolding/' + id,{
+        if(!values.ownerID || !values.legalEntity || !values.netMineralAcres || !values.mineralOwnerRoyalty || !values.section
+            ||!values.townshipBeg || !values.townshipEnd|| !values.rangeBeg || !values.rangeEnd || !values.titleSource
+        ){
+            return alert("Please fill in all details");
+        }
+        axios.put('http://localhost:3000/updateLandHolding/' + id,{
             values
         })
-        .then(history(-1))
+        .then(history("/home", {state:{id:sessionStorage.getItem("urlState")}}))
         .catch(err => console.log(err))
     }
     return(
@@ -76,10 +81,10 @@ function EditLandHolding(){
             <form action = "POST">
                 <label>Owners: </label>
                 <select  onChange={e => setValues({...values, ownerID:e.target.value})}>
-                    <option disabled selected value={values.ownerFrom}> {values.ownerFrom} </option>
+                    <option disabled selected value={values.ownerFrom}> {"Current Owner: " + values.ownerFrom} </option>
                     {
                         owners.map(owner => {
-                            return (<option value={owner._id}>{owner.ownerName}</option>)
+                            return (<option value={owner._id}>{"Owner Name: " + owner.ownerName + " Address: "+owner.address}</option>)
                         })
                     }
                 </select>

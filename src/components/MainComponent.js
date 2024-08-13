@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from './HeaderComponent'
 
 import Home from './HomeComponent';
 import SignIn from './SigninComponent';
@@ -23,10 +22,9 @@ function Main (){
         <Route path = '/EditLandHolding/:id' element={<EditLandHolding/>}/>
         </Routes>
         </React.Fragment>
-        //TODO CR basically finish just need UD and done with main
-        //add total nums to owners and have it update constantly
-        //Make edit component then delete component
-        //Should be finished by monday
+        //TODO Optional: Bonus part also try to make it pretty
+        // so we need to allow user to upload files which is pretty easy
+        // then we need to show links to related files not sure what this means
     )
 }
 export default Main;

@@ -12,9 +12,11 @@ function Add(){
     const [address,setAddress] = useState('')
     async function submit(e){
         e.preventDefault();
-
+        if(!ownerName || !entityType || !ownerType || !address){
+            return alert("Please fill in all details");
+        }
         try{
-            await axios.post("https://backend-ewdk.onrender.com/Add", {
+            await axios.post("http://localhost:3000/Add", {
                 ownerName,entityType,ownerType,address
             })
             .then(res =>{
@@ -22,7 +24,7 @@ function Add(){
                     alert("Owner already exists, Please change owner name or address")
                 }
                 else if(res.data == "notexist"){
-                    history(-1)
+                    history("/home", {state:{id:sessionStorage.getItem("urlState")}})
                 }
             })
             .catch(e=>{

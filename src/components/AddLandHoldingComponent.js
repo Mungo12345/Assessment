@@ -17,13 +17,17 @@ function AddLand(){
     const [titleSource,setTitleSource] = useState('')
     async function submit(e){
         e.preventDefault();
-
+        if(!ownerID || !legalEntity || !netMineralAcres || !mineralOwnerRoyalty || !section
+            ||!townshipBeg || !townshipEnd|| !rangeBeg || !rangeEnd || !titleSource
+        ){
+            return alert("Please fill in all details");
+        }
         try{
-            await axios.post("https://backend-ewdk.onrender.com/AddLand", {
+            await axios.post("http://localhost:3000/AddLand", {
                 ownerID,legalEntity,netMineralAcres,mineralOwnerRoyalty,section,townshipBeg,townshipEnd,rangeBeg,rangeEnd,titleSource
             })
             .then(
-                history(-1)
+                history("/home", {state:{id:sessionStorage.getItem("urlState")}})
         )
             .catch(e=>{
                 alert("Wrong details")
@@ -37,7 +41,7 @@ function AddLand(){
     }
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('https://backend-ewdk.onrender.com/getOwners')
+        axios.get('http://localhost:3000/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
 
@@ -54,7 +58,7 @@ function AddLand(){
                     <option disabled selected value> -- select an option -- </option>
                     {
                         owners.map(owner => {
-                            return (<option value={owner._id}>{owner.ownerName}</option>)
+                            return (<option value={owner._id}>{"Owner Name: " + owner.ownerName + " Address: "+owner.address}</option>)
                         })
                     }
                 </select>
