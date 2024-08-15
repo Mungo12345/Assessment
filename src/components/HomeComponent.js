@@ -29,6 +29,9 @@ function Home(){
         axios.get('https://backend-ewdk.onrender.com/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
+        axios.get('https://backend-ewdk.onrender.com/getOwners')
+        .then(owners => setOwners(owners.data))
+        .catch(err => console.log(err))
         
 
     }, [])
