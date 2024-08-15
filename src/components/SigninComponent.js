@@ -13,7 +13,7 @@ function SignIn(){
             return alert("Please fill in all details");
         }
         try{
-            await axios.post("http://localhost:3000/signIn", {
+            await axios.post("https://backend-ewdk.onrender.com/signIn", {
                 email,password
             })
             .then(res =>{

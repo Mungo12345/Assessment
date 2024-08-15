@@ -15,7 +15,7 @@ function FileOwner(){
         const formdata = new FormData();
         formdata.append('id', id)
         formdata.append('image', file);
-        axios.post('http://localhost:3000/uploadOwnerFile/'+ id,formdata)
+        axios.post('https://backend-ewdk.onrender.com/uploadOwnerFile/'+ id,formdata)
         .then(history("/home", {state:{id:sessionStorage.getItem("urlState")}}))
         .catch(err => console.log(err))
 
