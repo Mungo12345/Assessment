@@ -13,17 +13,20 @@ function Home(){
     const urlState = sessionStorage.getItem("urlState");
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('https://backend-ewdk.onrender.com/getOwners')
+        axios.get('http://localhost:3000/getOwners')
         .then(owners => setOwners(owners.data))
+        .catch(err => console.log(err))
+        axios.get('http://localhost:3000/getLandHoldings')
+        .then(landholds => setLandHolds(landholds.data))
         .catch(err => console.log(err))
 
     }, [])
     const [landholds, setLandHolds] = useState([])
     useEffect(()=>{
-        axios.get('https://backend-ewdk.onrender.com/getLandHoldings')
+        axios.get('http://localhost:3000/getLandHoldings')
         .then(landholds => setLandHolds(landholds.data))
         .catch(err => console.log(err))
-        axios.get('https://backend-ewdk.onrender.com/getOwners')
+        axios.get('http://localhost:3000/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
         
@@ -31,12 +34,12 @@ function Home(){
     }, [])
 
     const handleDeleteOwner = async(id)=>{
-        const owners = await axios.delete("https://backend-ewdk.onrender.com/deleteOwner/" + id)
+        const owners = await axios.delete("http://localhost:3000/deleteOwner/" + id)
         if(owners.data.success){
-                axios.get('https://backend-ewdk.onrender.com/getOwners')
+                axios.get('http://localhost:3000/getOwners')
                 .then(owners => setOwners(owners.data))
                 .catch(err => console.log(err))
-                axios.get('https://backend-ewdk.onrender.com/getLandHoldings')
+                axios.get('http://localhost:3000/getLandHoldings')
                 .then(landholds => setLandHolds(landholds.data))
                 .catch(err => console.log(err))
             alert(owners.data.message)
@@ -44,12 +47,12 @@ function Home(){
     }
     
     const handleDeleteLandHolding = async(id)=>{
-        const landholds = await axios.delete("https://backend-ewdk.onrender.com/deleteLandHolding/" + id)
+        const landholds = await axios.delete("http://localhost:3000/deleteLandHolding/" + id)
         if(landholds.data.success){
-                axios.get('https://backend-ewdk.onrender.com/getLandHoldings')
+                axios.get('http://localhost:3000/getLandHoldings')
                 .then(landholds => setLandHolds(landholds.data))
                 .catch(err => console.log(err))
-                axios.get('https://backend-ewdk.onrender.com/getOwners')
+                axios.get('http://localhost:3000/getOwners')
                 .then(owners => setOwners(owners.data))
                 .catch(err => console.log(err))
             alert(landholds.data.message)
@@ -93,11 +96,12 @@ function Home(){
                                 <td>{owner.entityType}</td>
                                 <td>{owner.ownerType}</td>
                                 <td>{owner.address}</td>
-                                <td>{owner.totalLand}</td>
-                                <td>
+                                <td>{owner.totalLand}</td> 
+                                <td>{ !owner.fileName ? 'No File Uploaded' : <a href={'http://localhost:3000/' + owner.fileName}>Link to File</a> }</td>                              
                                     <button className="btn btn-edit" onClick={()=> navigate(`/EditOwner/${owner._id}`)}>Edit</button>
                                     <button className="btn btn-delete" onClick={()=>handleDeleteOwner(owner._id)}>Delete</button>
-                                </td>
+                                    <button className="btn btn-edit" onClick={()=> navigate(`/FileUploadOwner/${owner._id}`)}>File Upload</button>
+
                             </tr>
                         })
                     }
@@ -139,10 +143,13 @@ function Home(){
                                 <td>{landhold.netMineralAcres}</td>
                                 <td>{landhold.mineralOwnerRoyalty}</td>
                                 <td>{landhold.sectionName}</td>
-                                <td>
+                                
+                                <td>{ !landhold.fileName ? 'No File Uploaded' : <a href={'http://localhost:3000/' + landhold.fileName}>Link to File</a> }</td>
+
                                     <button className="btn btn-edit"onClick={()=> navigate(`/EditLandHolding/${landhold._id}`)}>Edit</button>
                                     <button className="btn btn-delete"onClick={()=>handleDeleteLandHolding(landhold._id)}>Delete</button>
-                                </td>
+                                    <button className="btn btn-edit" onClick={()=> navigate(`/FileUploadLand/${landhold._id}`)}>File Upload</button>
+
                             </tr>
                         })
                     }

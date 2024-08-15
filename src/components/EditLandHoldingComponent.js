@@ -30,7 +30,7 @@ function EditLandHolding(){
     })
 
     useEffect(()=> {
-        axios.get('https://backend-ewdk.onrender.com/getLandHolding/' + id)
+        axios.get('http://localhost:3000/getLandHolding/' + id)
         .then(res => {
             setValues({...values, name : res.data.name,
                 ownerID: res.data.ownerID,
@@ -55,7 +55,7 @@ function EditLandHolding(){
   
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('https://backend-ewdk.onrender.com/getOwners')
+        axios.get('http://localhost:3000/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
 
@@ -68,7 +68,7 @@ function EditLandHolding(){
         ){
             return alert("Please fill in all details");
         }
-        axios.put('https://backend-ewdk.onrender.com/updateLandHolding/' + id,{
+        axios.put('http://localhost:3000/updateLandHolding/' + id,{
             values
         })
         .then(history("/home", {state:{id:sessionStorage.getItem("urlState")}}))
@@ -89,15 +89,19 @@ function EditLandHolding(){
                     }
                 </select>
                 <br></br>
+                <label>Legal Entity: </label>
                 <input type = "legalEntity" value={values.legalEntity} onChange={e => setValues({...values, legalEntity:e.target.value})} placeholder="Legal Entity" />
                 <br></br>
+                <label>Net Mineral Acres: </label>
                 <input type = "netMineralAcres" value={values.netMineralAcres} onChange={e => setValues({...values, netMineralAcres:e.target.value})} placeholder="Net Mineral Acres" />
                 <br></br>
+                <label>Mineral Owner Royalty: </label>
                 <input type = "mineralOwnerRoyalty" value={values.mineralOwnerRoyalty} onChange={e => setValues({...values, mineralOwnerRoyalty:e.target.value})} placeholder="Mineral Owner Royalty (%)" />
                 <br></br>
-                
+                <label>Section: </label>
                 <input onKeyDown={(e) => !/[0-9]|Backspace/.test(e.key) && e.preventDefault()}  maxLength={3}  value={values.section} onChange={e => setValues({...values, section:e.target.value})} placeholder="Section (3 numbers)" />
                 <br></br>
+                <label>Township: </label>
                 <input onKeyDown={(e) => !/[0-9]|Backspace/.test(e.key) && e.preventDefault()} maxLength={3} value={values.townshipBeg} onChange={e => setValues({...values, townshipBeg:e.target.value})} placeholder="Township (3 numbers)" />
                 <select  onChange={e => setValues({...values, townshipEnd:e.target.value})}>
                     <option disabled selected value = {values.townshipEnd}> {values.townshipEnd} </option>
@@ -105,6 +109,7 @@ function EditLandHolding(){
                     <option value="S">S</option>
                     </select>
                 <br></br>
+                <label>Range: </label>
                 <input onKeyDown={(e) => !/[0-9]|Backspace/.test(e.key) && e.preventDefault()} maxLength={3} value={values.rangeBeg} onChange={e => setValues({...values, rangeBeg:e.target.value})} placeholder="Range (3 numbers)" />
                 <select onChange={e => setValues({...values, rangeEnd:e.target.value})}>
                     <option disabled selected value = {values.rangeEnd}> {values.rangeEnd} </option>

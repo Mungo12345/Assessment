@@ -18,14 +18,21 @@ h2 {
   display: inline-block;
 }
 
-a:Link{
-  margin-right: 500px;
-  display: inline-block;
-}
 
+a:Link,
 .btn-edit,
 .btn-delete{
   font-size: 16px;
-  padding: 5px 10px;
+  padding: 10px 10px;
   margin-right:0px 10px
+
+}
+img{
+  text-indent:-9999px
+}
+td,th {
+  text-align: center;
+}
+table, th, td {
+  border: 1px solid black;
 }

@@ -11,7 +11,7 @@ function Login(){
         e.preventDefault();
 
         try{
-            await axios.post("https://backend-ewdk.onrender.com/", {
+            await axios.post("http://localhost:3000/", {
                 email,password
             })
             .then(res =>{

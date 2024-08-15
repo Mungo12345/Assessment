@@ -17,7 +17,7 @@ function EditOwner(){
     })
 
     useEffect(()=> {
-        axios.get('https://backend-ewdk.onrender.com/getOwner/' + id)
+        axios.get('http://localhost:3000/getOwner/' + id)
         .then(res => {
             setValues({...values, ownerName: res.data.ownerName,entityType:res.data.entityType, ownerType:res.data.ownerType, address:res.data.address})
         })
@@ -29,7 +29,7 @@ function EditOwner(){
         if(!values.ownerName||!values.entityType||!values.ownerType||!values.address){
             return alert("Please fill in all details");
         }
-        axios.put('https://backend-ewdk.onrender.com/updateOwner/' + id,{
+        axios.put('http://localhost:3000/updateOwner/' + id,{
             values
         })
         .then(history("/home", {state:{id:sessionStorage.getItem("urlState")}}))
@@ -40,6 +40,7 @@ function EditOwner(){
             <h1>Edit Owner Details</h1>
 
             <form>
+            <label>Owner Name: </label>
                 <input type = "ownerName" placeholder="ownerName" required={true}
                 value={values.ownerName} onChange={e => setValues({...values, ownerName:e.target.value})}/>
                 <br></br>
@@ -61,6 +62,7 @@ function EditOwner(){
                     <option value="Professional">Professional</option>
                     </select>
                 <br></br>
+                <label>Address: </label>
                 <input type = "address"  placeholder="address" required={true}
                 value={values.address} onChange={e => setValues({...values, address:e.target.value})}/>
                 <br></br>

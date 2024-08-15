@@ -23,7 +23,7 @@ function AddLand(){
             return alert("Please fill in all details");
         }
         try{
-            await axios.post("https://backend-ewdk.onrender.com/AddLand", {
+            await axios.post("http://localhost:3000/AddLand", {
                 ownerID,legalEntity,netMineralAcres,mineralOwnerRoyalty,section,townshipBeg,townshipEnd,rangeBeg,rangeEnd,titleSource
             })
             .then(
@@ -41,7 +41,7 @@ function AddLand(){
     }
     const [owners, setOwners] = useState([])
     useEffect(()=>{
-        axios.get('https://backend-ewdk.onrender.com/getOwners')
+        axios.get('http://localhost:3000/getOwners')
         .then(owners => setOwners(owners.data))
         .catch(err => console.log(err))
 
@@ -63,15 +63,19 @@ function AddLand(){
                     }
                 </select>
                 <br></br>
+                <label>Legal Entity: </label>
                 <input type = "legalEntity" onChange={(e) => {setlegalEntity(e.target.value)}} placeholder="Legal Entity" />
                 <br></br>
+                <label>Net Mineral Acres: </label>
                 <input type = "netMineralAcres" onChange={(e) => {setNetMineralAcres(e.target.value)}} placeholder="Net Mineral Acres" />
                 <br></br>
+                <label>Mineral Owner Royalty: </label>
                 <input type = "mineralOwnerRoyalty" onChange={(e) => {setMineralOwnerRoyalty(e.target.value)}} placeholder="Mineral Owner Royalty (%)" />
                 <br></br>
-
+                <label>Section: </label>
                 <input onKeyDown={(e) => !/[0-9]|Backspace/.test(e.key) && e.preventDefault()}  maxLength={3}  onChange={(e) => {setSection(e.target.value)}} placeholder="Section (3 numbers)" />
                 <br></br>
+                <label>Township: </label>
                 <input onKeyDown={(e) => !/[0-9]|Backspace/.test(e.key) && e.preventDefault()} maxLength={3} onChange={(e) => {setTownshipBeg(e.target.value)}} placeholder="Township (3 numbers)" />
                 <select onChange={(e)=>{setTownshipEnd(e.target.value)}}>
                     <option disabled selected value> -- select an option -- </option>
@@ -79,6 +83,7 @@ function AddLand(){
                     <option value="S">S</option>
                     </select>
                 <br></br>
+                <label>Range: </label>
                 <input onKeyDown={(e) => !/[0-9]|Backspace/.test(e.key) && e.preventDefault()} maxLength={3} onChange={(e) => {setRangeBeg(e.target.value)}} placeholder="Range (3 numbers)" />
                 <select onChange={(e)=>{setRangeEnd(e.target.value)}}>
                     <option disabled selected value> -- select an option -- </option>

@@ -16,7 +16,7 @@ function Add(){
             return alert("Please fill in all details");
         }
         try{
-            await axios.post("https://backend-ewdk.onrender.com/Add", {
+            await axios.post("http://localhost:3000/Add", {
                 ownerName,entityType,ownerType,address
             })
             .then(res =>{
@@ -41,6 +41,7 @@ function Add(){
             <h1>Add Owner Details</h1>
 
             <form action = "POST">
+            <label>Owner Name: </label>
                 <input type = "ownerName" onChange={(e) => {setownerName(e.target.value)}} placeholder="ownerName" required={true}/>
                 <br></br>
                 <label>Entity Type: </label>
@@ -61,6 +62,7 @@ function Add(){
                     <option value="Professional">Professional</option>
                     </select>
                 <br></br>
+                <label>Address: </label>
                 <input type = "address" onChange={(e) => {setAddress(e.target.value)}} placeholder="address" required={true}/>
                 <br></br>
                 <input type = "Submit" onClick = {submit}/>
